@@ -2,12 +2,20 @@ package com.example.todo.userapi.dto.response;
 
 import com.example.todo.userapi.entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
 import java.time.LocalDate;
 
 /**
  * 로그인 성공 후 클라이언트에게 전송할 데이턱 객체
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@Builder
 public class LoginResponseDTO {
 
     private String email;
