@@ -4,6 +4,7 @@ import com.example.todo.userapi.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -22,12 +23,14 @@ import java.util.Map;
 public class TokenProvider {
 
     // 서명에 사용할 값 (512비트 이상의 랜덤 문자열로 생성 - 보안을 강화하기 위함)
+
+    @Value("${jwt.secret}")
     private String SECRET_KEY;
 
     /**
      * Json Web Token 을 생성하는 메서드
      * @param userEntity - 토큰의 내용(클레임) 에 포함될 유저 정보 <현재 로그인한 사람의 정보를 토큰의 담기>
-     * @return - 생성된 json 을 암호화환 토큰값
+     * @return - 생성된 json 을 암호화한 토큰값
      */
     public String createToken(User userEntity) {
 
@@ -59,7 +62,7 @@ public class TokenProvider {
                 // SECRET_KEY 를 한번 더 암호화합니다.
                 .signWith(
                         Keys.hmacShaKeyFor(SECRET_KEY.getBytes())
-                        , SignatureAlgorithm.ES512
+                        , SignatureAlgorithm.HS512
                 )
                 // token payload 에 들어갈 클레임 설정
                 .setIssuer("ddamddamCLUB") // iss: 발급자 정보
