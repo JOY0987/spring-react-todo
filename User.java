@@ -1,0 +1,6 @@
+@Setter
+public class User {
+
+
+
+}
